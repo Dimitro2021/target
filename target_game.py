@@ -29,7 +29,7 @@ def get_words(file_name: str, letters: List[str]) -> List[str]:
         str_lett = str(letters)
         for line in file:
             flag = True
-            line = line[:-1]
+            line = line[:-1].lower()
             # print(len(line))
             if 3 < len(line) < 10 and line.find(letters[4]) != -1:
                 print(line)
@@ -51,7 +51,7 @@ def get_words(file_name: str, letters: List[str]) -> List[str]:
         #         return list_of_words
                 # list_of_words.append(line.replace('\n', ''))
     # print(list_of_words)
-# print(get_words('en.txt', ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i']))
+print(get_words('en.txt', ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i']))
 
 def get_user_words() -> List[str]:
     """
@@ -89,11 +89,33 @@ def get_pure_user_words(user_words: List[str], letters: List[str], words_from_di
                 ok_but_not_words.append(word)
     return ok_but_not_words
 
+def right_words(user_words: List[str], letters: List[str], words_from_dict: List[str]) -> List[str]:
+    right_words_counter = 0
+    for word in user_words.split():
+        if word in words_from_dict:
+            right_words_counter += 1
+    return right_words_counter
+
+
+def missing_words(right_wrds: List[str], all_wrds: List[str]) -> List[str]:
+    new_lst = []
+    for wrd in all_wrds:
+        if str(right_wrds).find(wrd) != -1:
+            new_lst.append(wrd)
+
 # print(get_pure_user_words('mama cpxm czwpe' , ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i'], get_words('en.txt', ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i'])))
 
 def results():
+    user = get_user_words()
+    lettrs = generate_grid()
+    words_dict = get_words('en.txt', lettrs)
+    right_wrd = right_words(user, lettrs, words_dict)
+    pure_wrd = get_pure_user_words(user, lettrs, words_dict)
+    print(right_wrd, words_dict, )
     with open('result.txt', 'w') as res_fl:
-        pass
+        res_fl.write('')
+
+# Результати гри це кількість правильних слів, які ввів гравець, всі можливі слова, слова, які гравець пропустив, слова, які ввів гравець і які відсутні у словнику.
 
 if __name__ == '___main__':
     import doctest
