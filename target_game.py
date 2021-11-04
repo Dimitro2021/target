@@ -51,7 +51,7 @@ def get_words(file_name: str, letters: List[str]) -> List[str]:
         #         return list_of_words
                 # list_of_words.append(line.replace('\n', ''))
     # print(list_of_words)
-print(get_words('en.txt', ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i']))
+# print(get_words('en.txt', ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i']))
 
 def get_user_words() -> List[str]:
     """
@@ -81,16 +81,19 @@ def get_pure_user_words(user_words: List[str], letters: List[str], words_from_di
     """
     right_words_counter = 0
     ok_but_not_words = []
-    for word in user_words:
+    for word in user_words.split():
         if word in words_from_dict:
             right_words_counter += 1
         else:
             if checker(word, letters):
                 ok_but_not_words.append(word)
+    return ok_but_not_words
 
+# print(get_pure_user_words('mama cpxm czwpe' , ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i'], get_words('en.txt', ['e', 'm', 'x', 'p', 'c', 'z', 'w', 'p', 'i'])))
 
 def results():
-    pass
+    with open('result.txt', 'w') as res_fl:
+        pass
 
 if __name__ == '___main__':
     import doctest
